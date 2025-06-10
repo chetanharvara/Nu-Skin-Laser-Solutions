@@ -1,0 +1,439 @@
+{% comment %} sections/custom-row.liquid {% endcomment %}
+<div class="custom-row-section" style="background: {{ section.settings.bg_color }};">
+  <div class="page-width">
+    <div class="custom-row" id="row-{{ section.id }}">
+      {% for block in section.blocks %}
+        <div class="custom-column col-{{ block.settings.width }}" {{ block.shopify_attributes }}>
+          {% render 'content-block', block: block %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .custom-row-section {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  .custom-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -{{ section.settings.gap }}px;
+    {% if section.settings.alignment == 'center' %}justify-content: center;{% endif %}
+    {% if section.settings.alignment == 'right' %}justify-content: flex-end;{% endif %}
+  }
+
+  .custom-column {
+    padding: 0 {{ section.settings.gap }}px;
+    margin-bottom: {{ section.settings.gap | times: 2 }}px;
+    box-sizing: border-box;
+    width: 50%;
+  }
+
+  .col-12 { width: 100%; }
+  .col-9 { width: 75%; }
+  .col-8 { width: 66.66%; }
+  .col-6 { width: 50%; }
+  .col-4 { width: 33.33%; }
+  .col-3 { width: 25%; }
+
+  @media (max-width: 768px) {
+    .custom-row {
+      flex-direction: column;
+    }
+
+    .custom-column {
+      width: 100% !important;
+    }
+  }
+
+  .contact-us-form {
+    padding: 80px 0;
+  }
+
+  .form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 50px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 6px;
+  }
+
+  .contact-us-form h3 {
+    font-size: 32px;
+    color: #208fa3;
+    font-family: poppins, sans-serif;
+    font-weight: 400;
+    margin-bottom: 30px;
+  }
+
+  .form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .email-phone-fields {
+    display: flex;
+    gap: 20px;
+  }
+
+  .filed-full {
+    width: 100%;
+  }
+
+  .filed-50 {
+    width: 48%;
+    flex-grow: 1;
+  }
+
+  .phone-filed,
+  .email-filed,
+  .name-filed,
+  .message-filed {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .phone-filed label,
+  .email-filed label,
+  .name-filed label,
+  .message-filed label {
+    font-size: 16px;
+    color: #208fa3;
+    font-family: poppins, sans-serif;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  .phone-filed input,
+  .email-filed input,
+  .name-filed input,
+  .message-filed textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 0px;
+    border-bottom: 1px solid #208fa3;
+    font-size: 16px;
+    background-color: transparent;
+    padding: 12px 0;
+    font-family: poppins, sans-serif;
+  }
+
+  .message-filed {
+    margin-bottom: 10px;
+  }
+
+  .darkblue-btn {
+    background: #208fa3;
+    color: white;
+    border: none;
+    padding: 14px 35px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-family: poppins, sans-serif;
+    margin-top: 20px;
+  }
+
+  .darkblue-btn:hover {
+    background: #1a7587;
+  }
+
+  .form-success {
+    color: #28a745;
+    font-family: poppins, sans-serif;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .form-container {
+      padding: 30px;
+    }
+
+    .contact-us-form h3 {
+      font-size: 28px;
+    }
+
+    .email-phone-fields {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .filed-50 {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .form-container {
+      padding: 20px;
+    }
+
+    .contact-us-form h3 {
+      font-size: 24px;
+    }
+  }
+
+  .contact-us-info {
+    padding: 80px 0;
+  }
+
+  .info-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .contact-us-info h3 {
+    font-size: 32px;
+    color: #208fa3;
+    font-family: poppins, sans-serif;
+    font-weight: 400;
+    margin-bottom: 30px;
+  }
+
+  .contact-info-col {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 6px;
+  }
+
+  .contact-address,
+  .contact-hours,
+  .contact-email,
+  .contact-phone {
+    font-size: 16px;
+    color: #2f2f2f;
+    font-family: poppins, sans-serif;
+    font-weight: 300;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .contact-details {
+    margin-bottom: 25px;
+  }
+
+  .contact-email a,
+  .contact-phone a {
+    color: #208fa3;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .contact-email a:hover,
+  .contact-phone a:hover {
+    color: #1a7587;
+    text-decoration: underline;
+  }
+
+  .borderblue-btn {
+    background: transparent;
+    color: #208fa3;
+    border: 2px solid #208fa3;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: poppins, sans-serif;
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  .borderblue-btn:hover {
+    background: #208fa3;
+    color: white;
+  }
+
+  .map-container {
+    width: 100%;
+    margin-top: 30px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  @media (max-width: 768px) {
+    .contact-us-info h3 {
+      font-size: 28px;
+    }
+
+    .contact-info-col {
+      padding: 30px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .contact-us-info h3 {
+      font-size: 24px;
+    }
+
+    .contact-info-col {
+      padding: 20px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Custom Row",
+  "settings": [
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Column Gap",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Row Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "contact-form",
+      "name": "Contact Form",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Get in Touch"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Send Message"
+        }
+      ]
+    },
+    {
+      "type": "contact-info",
+      "name": "Contact Info",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Visit Us"
+        },
+        {
+          "type": "text",
+          "id": "address",
+          "label": "Address",
+          "default": "123 Nu-skin Street, Beauty City, BC 12345"
+        },
+        {
+          "type": "richtext",
+          "id": "hours",
+          "label": "Hours",
+          "default": "<p>Monday - Friday: 9:00 AM - 6:00 PM<br />Saturday: 10:00 AM - 4:00 PM<br />Sunday: Closed</p>"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email",
+          "default": "info@nuskinlaser.com"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone",
+          "default": "(845) 337-1125"
+        },
+        {
+          "type": "text",
+          "id": "directions_text",
+          "label": "Directions Button Text",
+          "default": "Get Directions"
+        },
+        {
+          "type": "url",
+          "id": "map_link",
+          "label": "Map Link"
+        },
+        {
+          "type": "text",
+          "id": "map_embed",
+          "label": "Map Embed URL",
+          "default": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3005.9002094782727!2d-74.15048452344975!3d41.114870412853854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2e09566ac355b%3A0x915d22bd6698a187!2s133%20Lafayette%20Ave%2C%20Suffern%2C%20NY%2010901%2C%20USA!5e0!3m2!1sen!2sin!4v1748529783974!5m2!1sen!2sin"
+        }
+      ]
+    },
+    {
+      "type": "custom-html",
+      "name": "Custom HTML",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Custom Liquid/HTML"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Row",
+      "category": "Structure",
+      "blocks": [
+        {
+          "type": "contact-form",
+          "settings": {
+            "heading": "Contact Us"
+          }
+        },
+        {
+          "type": "contact-info",
+          "settings": {
+            "heading": "Our Location"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,26 @@
+{% comment %} Dynamic All Services Section from Collection {% endcomment %}
+<div class="all-services-wrapper page-width">
+  <h1 class="text-center">Our Services</h1>
+
+  {% assign collection_handle = 'services' %}
+  {% assign service_collection = collections[collection_handle] %}
+
+  {% if service_collection.products_count > 0 %}
+    <div class="services-grid">
+      {% for product in service_collection.products %}
+        <div class="service-card">
+          <a href="{{ product.url }}">
+            <img src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.title }}" class="service-image">
+          </a>
+          <h3>
+            <a href="{{ product.url }}">{{ product.title }}</a>
+          </h3>
+          <p class="price">From {{ product.price | money }}</p>
+          <a href="{{ product.url }}" class="btn">View Details</a>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No services found. Please add products to the "Services" collection.</p>
+  {% endif %}
+</div>

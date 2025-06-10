@@ -1,0 +1,19 @@
+{% comment %} Contact Form Section {% endcomment %}
+{% schema %}
+{
+  "name": "Contact Form",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}
+
+<section class="contact-form">
+  <h2>Ready to glow with us?</h2>
+  {% form 'contact' %}
+    <input type="text" name="contact[name]" placeholder="Name" required>
+    <input type="email" name="contact[email]" placeholder="Email" required>
+    <input type="tel" name="contact[phone]" placeholder="Phone">
+    <textarea name="contact[body]" placeholder="Message"></textarea>
+    <button type="submit">Send</button>
+  {% endform %}
+</section>

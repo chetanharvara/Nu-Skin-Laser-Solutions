@@ -1,0 +1,219 @@
+{% comment %} sections/why-nu-skin.liquid {% endcomment %}
+<div class="why-section section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="why-text">
+      <h1>{{ section.settings.heading }}</h1>
+      <div class="why-text-content">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'feature' %}
+              <div class="icon-box">
+                <div class="icon-col">
+                  {% if block.settings.icon != blank %}
+                    <img
+                      src="{{ block.settings.icon | image_url: width: 100 }}"
+                      alt="{{ block.settings.title | escape }}"
+                      class="custom-icon"
+                      width="50"
+                      height="50"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    <div class="icon-placeholder">
+                      {{ 'image' | placeholder_svg_tag: 'custom-icon placeholder-svg' }}
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="icon-text">
+                  <h3>{{ block.settings.title }}</h3>
+                  <p>{{ block.settings.description }}</p>
+                </div>
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+
+
+  .why-section {
+    background-color: white;
+  }
+
+  .why-text h1 {
+    font-size: 56px;
+    color: #2f2f2f;
+    margin-bottom: 60px;
+    text-align: center;
+    font-weight: 400;
+  }
+
+  .why-text-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+
+  .icon-box {
+    display: flex;
+    background: #f8f8f8;
+    border-radius: 12px;
+    padding: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .icon-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  }
+
+  .icon-col {
+    flex: 0 0 auto;
+    margin-right: 25px;
+  }
+
+  .custom-icon {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+  }
+
+  .icon-text {
+    flex: 1;
+  }
+
+  .icon-box h3 {
+    font-size: 22px;
+    color: #208fa3;
+    margin-bottom: 15px;
+    font-weight: 500;
+  }
+
+  .icon-box p {
+    font-size: 16px;
+    color: #2f2f2f;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 1024px) {
+    .why-text-content {
+      grid-template-columns: 1fr;
+    }
+
+    .why-text h1 {
+      font-size: 46px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .why-text h1 {
+      font-size: 36px;
+    }
+
+    .icon-box {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .icon-col {
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Why Nu-Skin?",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why Nu-Skin Laser Solutions?"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "We take a patient-centered approach"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Our staff of licensed, experienced and knowledgeable aestheticians treats everyone like a VIP."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why Nu-Skin?",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "We take a patient-centered approach",
+            "description": "Our staff of licensed, experienced and knowledgeable aestheticians treats everyone like a VIP."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "We are affordable",
+            "description": "We offer affordable prices for exclusive services. We also offer financing that is interest-free for the first year."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "We are committed to safety",
+            "description": "We are committed to industry best practices and keep up to date on all policies and protocols."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "We are conveniently located",
+            "description": "We are conveniently located in Suffern, NY, just a short driving distance from Bergen and Rockland counties."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "We are extremely accommodating",
+            "description": "For your convenience we have appointments for various treatments between 9am and 7:30pm on most days."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "We use the latest equipment",
+            "description": "We have made significant investments in all the latest technical solutions. Our facility is completely state of the art."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

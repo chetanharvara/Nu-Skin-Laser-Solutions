@@ -1,0 +1,23 @@
+{% comment %} All Services Listing Section {% endcomment %}
+<div class="all-services-wrapper page-width">
+  <h1 class="text-center">Our Services</h1>
+  <div class="services-grid">
+    {% assign services = 'Laser Hair Removal|from $217.00,
+      CoolSculpting|from $697.00,
+      Hair Restoration (Keralase)|from $1447.00,
+      Hydrafacial|from $557.00,
+      Dermaplaning|from $117.00,
+      Laser Resurfacing (LaseMD Ultra Skin Rejuvenation)|from $117.00'
+      | split: ','
+    %}
+
+    {% for item in services %}
+      {% assign parts = item | split: '|' %}
+      <div class="service-card">
+        <h3>{{ parts[0] }}</h3>
+        <p>{{ parts[1] }}</p>
+        <a href="#" class="btn">Book Now</a>
+      </div>
+    {% endfor %}
+  </div>
+</div>

@@ -1,0 +1,255 @@
+{% comment %} sections/contact-us-info.liquid {% endcomment %}
+<div class="contact-us-info" style="background: {{ section.settings.bg_color }};">
+  <div class="page-width">
+    <div class="info-container">
+      <h3>{{ section.settings.heading }}</h3>
+
+      <div class="contact-info-col">
+        <p class="contact-address">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="#208fa3"
+            width="20px"
+            height="20px"
+            style="vertical-align: middle; margin-right: 10px;"
+          >
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+          </svg>
+          {{ section.settings.address }}
+        </p>
+
+        <div class="contact-hours">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="#208fa3"
+            width="20px"
+            height="20px"
+            style="vertical-align: middle; margin-right: 10px;"
+          >
+            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+          </svg>
+          {{ section.settings.hours }}
+        </div>
+
+        <div class="contact-details">
+          <p class="contact-email">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="#208fa3"
+              width="20px"
+              height="20px"
+              style="vertical-align: middle; margin-right: 10px;"
+            >
+              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+            <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a>
+          </p>
+
+          <p class="contact-phone">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="#208fa3"
+              width="20px"
+              height="20px"
+              style="vertical-align: middle; margin-right: 10px;"
+            >
+              <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+            </svg>
+            {{ 'templates.contact.form.phone' | t }}:
+            <a href="tel:{{ section.settings.phone }}">{{ section.settings.phone }}</a>
+          </p>
+        </div>
+
+        <a href="{{ section.settings.map_link }}" class="borderblue-btn" target="_blank">
+          {{ section.settings.directions_text }}
+        </a>
+
+        <div class="map-container">
+          <iframe
+            title="Google Map"
+            src="{{ section.settings.map_embed }}"
+            width="100%"
+            height="250"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .contact-us-info {
+    padding: 80px 0;
+  }
+
+  .info-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .contact-us-info h3 {
+    font-size: 32px;
+    color: #208fa3;
+    font-family: poppins, sans-serif;
+    font-weight: 400;
+    margin-bottom: 30px;
+  }
+
+  .contact-info-col {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 6px;
+  }
+
+  .contact-address,
+  .contact-hours,
+  .contact-email,
+  .contact-phone {
+    font-size: 16px;
+    color: #2f2f2f;
+    font-family: poppins, sans-serif;
+    font-weight: 300;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .contact-details {
+    margin-bottom: 25px;
+  }
+
+  .contact-email a,
+  .contact-phone a {
+    color: #208fa3;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .contact-email a:hover,
+  .contact-phone a:hover {
+    color: #1a7587;
+    text-decoration: underline;
+  }
+
+  .borderblue-btn {
+    background: transparent;
+    color: #208fa3;
+    border: 2px solid #208fa3;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: poppins, sans-serif;
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  .borderblue-btn:hover {
+    background: #208fa3;
+    color: white;
+  }
+
+  .map-container {
+    width: 100%;
+    margin-top: 30px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  @media (max-width: 768px) {
+    .contact-us-info h3 {
+      font-size: 28px;
+    }
+
+    .contact-info-col {
+      padding: 30px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .contact-us-info h3 {
+      font-size: 24px;
+    }
+
+    .contact-info-col {
+      padding: 20px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Contact Us Info",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Come Visit!"
+    },
+    {
+      "type": "text",
+      "id": "address",
+      "label": "Address",
+      "default": "133 Lafayette Ave, Suffern, New York 10901"
+    },
+    {
+      "type": "richtext",
+      "id": "hours",
+      "label": "Hours",
+      "default": "<p>Monday - Friday: 9:00 AM - 6:00 PM<br />Saturday: 10:00 AM - 4:00 PM<br />Sunday: Closed</p>"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+      "default": "info@nuskinlaser.com"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone",
+      "default": "(845) 337-1125"
+    },
+    {
+      "type": "text",
+      "id": "directions_text",
+      "label": "Directions Button Text",
+      "default": "Get Directions"
+    },
+    {
+      "type": "url",
+      "id": "map_link",
+      "label": "Map Link"
+    },
+    {
+      "type": "text",
+      "id": "map_embed",
+      "label": "Map Embed URL",
+      "default": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3005.9002094782727!2d-74.15048452344975!3d41.114870412853854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2e09566ac355b%3A0x915d22bd6698a187!2s133%20Lafayette%20Ave%2C%20Suffern%2C%20NY%2010901%2C%20USA!5e0!3m2!1sen!2sin!4v1748529783974!5m2!1sen!2sin"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Us Info",
+      "category": "Contact"
+    }
+  ]
+}
+{% endschema %}

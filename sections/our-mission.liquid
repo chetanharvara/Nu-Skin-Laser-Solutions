@@ -1,0 +1,247 @@
+{% comment %} sections/our-mission.liquid {% endcomment %}
+<div class="mission-section section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="mission-inner">
+      <div class="mission-text">
+        <h1>{{ section.settings.heading }}</h1>
+        <p>{{ section.settings.description }}</p>
+        {% if section.settings.cta_link %}
+          <a href="{{ section.settings.cta_link }}" class="btn btn-primary lightblue-btn">
+            {{ section.settings.cta_text }}
+          </a>
+        {% endif %}
+      </div>
+
+      <div class="mission-image-col">
+        <div class="colbluebg custommissinclass">
+          <div class="mission-image-slider">
+            {% for block in section.blocks %}
+              {% if block.type == 'image' %}
+                <div class="slide-{{ forloop.index }}">
+                  {% if block.settings.image != blank %}
+                    <img
+                      src="{{ block.settings.image | image_url: width: 600 }}"
+                      alt="{{ block.settings.image.alt | escape }}"
+                      class="imageslide"
+                      width="450"
+                      height="480"
+                      loading="lazy"
+                    >
+                  {% else %}
+                    {{ 'image' | placeholder_svg_tag: 'imageslide placeholder-svg' }}
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .mission-section {
+    background-color: #f8f8f8;
+  }
+
+  .mission-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .mission-text {
+    width: 40%;
+  }
+
+  .mission-text h1 {
+    font-size: 68px;
+    color: #208fa3;
+    font-family: poppins, sans-serif;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+
+  .mission-text p {
+    font-size: 16px;
+    color: #2f2f2f;
+    font-family: poppins, sans-serif;
+    margin-bottom: 30px;
+    line-height: 1.6;
+  }
+
+  .mission-image-col {
+    width: 60%;
+    position: relative;
+    overflow: visible;
+  }
+
+  .mission-image-slider {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    padding: 30px 0;
+    margin-left: -15%;
+  }
+
+  .imageslide {
+    width: 450px;
+    height: 480px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+
+  .custommissinclass {
+    background-color: #208fa3;
+    border-radius: 20px;
+    padding: 30px;
+    width: 100%;
+  }
+
+  .lightblue-btn {
+    background-color: #208fa3;
+    color: white;
+    padding: 12px 35px;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 48px;
+    font-family: poppins, sans-serif;
+    border: 0;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+
+  .lightblue-btn:hover {
+    background-color: #1a7485;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  @media (max-width: 1024px) {
+    .mission-inner {
+      flex-direction: column;
+    }
+
+    .mission-text,
+    .mission-image-col {
+      width: 100%;
+    }
+
+    .mission-image-slider {
+      margin-left: 0;
+      justify-content: center;
+    }
+
+    .mission-text h1 {
+      font-size: 48px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .mission-image-slider {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .imageslide {
+      width: 100%;
+      height: auto;
+      max-height: 400px;
+    }
+
+    .mission-text h1 {
+      font-size: 36px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Our Mission",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Mission"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Our mission is to provide a professional and practical approach to health and beauty. We are dedicated to educating our clients, so our aestheticians will be more than happy to explain the ins and outs of all of our procedures and treatments."
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Link"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "See Services"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Recommended size: 450x480px"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our Mission",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

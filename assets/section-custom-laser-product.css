@@ -1,0 +1,36 @@
+.laser-product-wrapper {
+  padding: 2rem;
+}
+.laser-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.laser-packages .session-group {
+  margin-top: 1.5rem;
+}
+.package-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.package-card {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 6px;
+  width: 200px;
+  text-align: center;
+}
+.note {
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: 2rem;
+}
+.btn {
+  background: black;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+}

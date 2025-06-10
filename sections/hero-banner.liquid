@@ -1,0 +1,199 @@
+<section class="hero-section section-{{ section.id }}-padding">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <h1 class="hero-heading">{{ section.settings.heading }}</h1>
+      <p class="hero-subheading">{{ section.settings.subheading }}</p>
+      {% if section.settings.cta_link %}
+        <a href="{{ section.settings.cta_link }}" class="btn btn-primary white-btn">
+          {{ section.settings.cta_text }}
+        </a>
+      {% endif %}
+      <div class="spacer-50"></div>
+    </div>
+    <div class="hero-image">
+      {% if section.settings.image != blank %}
+        <img
+          src="{{ section.settings.image | image_url: width: 1200 }}"
+          alt="{{ section.settings.image.alt | escape }}"
+          class="heroimgclass"
+          width="100%"
+          height="auto"
+          loading="lazy"
+        >
+      {% else %}
+        {{ 'hero-image' | placeholder_svg_tag: 'heroimgclass placeholder-svg' }}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Section padding from settings */
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  /* Hero section styles */
+  .hero-section {
+    background: linear-gradient(to right, #208fa3, #8fc7c9);
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .hero-inner {
+    display: flex;
+    width: 100%;
+
+    margin: 0 auto;
+    padding-left: 5%;
+  }
+
+  .hero-content {
+    text-align: left;
+    color: #fff;
+    padding: 20px;
+    width: 60%;
+    align-self: start;
+  }
+
+  .hero-image {
+    width: 40%;
+    padding: 0;
+  }
+
+  .hero-heading {
+    font-size: 48px;
+    color: #fff;
+    font-family: poppins, sans-serif;
+  }
+
+  .hero-subheading {
+    font-size: 20px;
+    color: #fff;
+    font-family: poppins, sans-serif;
+  }
+
+  .heroimgclass {
+    width: 100%;
+    object-fit: cover;
+    margin-bottom: -5px;
+  }
+
+  .spacer-50 {
+    height: 50px;
+  }
+
+  .white-btn {
+    background-color: #fff;
+    color: #208fa3;
+    padding: 11px 33px;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 48px;
+    font-family: poppins, sans-serif;
+    border: 0px;
+    display: inline-block;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .white-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .hero-inner {
+      flex-direction: column;
+      padding: 0 5%;
+    }
+
+    .hero-content,
+    .hero-image {
+      width: 100%;
+    }
+
+    .hero-heading {
+      font-size: 36px;
+    }
+
+    .hero-subheading {
+      font-size: 18px;
+    }
+
+    .spacer-50 {
+      height: 30px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "We are committed to enhancing your innate beauty."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Best products + state-of-the-art technology + leading skincare techniques"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Link"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "Make an Appointment"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero Image",
+      "info": "Recommended size: 1200x800px"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}

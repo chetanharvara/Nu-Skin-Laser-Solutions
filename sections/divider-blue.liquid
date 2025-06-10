@@ -1,0 +1,86 @@
+{% comment %} sections/divider-blue.liquid {% endcomment %}
+<div class="divider-blue-section">
+  <div class="page-width">
+    <div class="divider-blue" style="background: {{ section.settings.color }};"></div>
+  </div>
+</div>
+
+<style>
+  .divider-blue-section {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.bg_color }};
+  }
+
+  .divider-blue {
+    height: {{ section.settings.thickness }}px;
+    width: 100%;
+    max-width: {{ section.settings.width }}%;
+    margin: 0 auto;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Divider Blue",
+  "settings": [
+    {
+      "type": "color",
+      "id": "color",
+      "label": "Divider Color",
+      "default": "#8fc7c9"
+    },
+    {
+      "type": "range",
+      "id": "thickness",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Thickness",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "width",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Width",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Divider Blue",
+      "category": "Structure"
+    }
+  ]
+}
+{% endschema %}

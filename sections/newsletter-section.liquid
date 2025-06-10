@@ -1,0 +1,283 @@
+{% comment %} sections/newsletter-section.liquid {% endcomment %}
+<div class="newsletter-section section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="newsletter-container">
+      <div class="newsletter-text">
+        <h1>{{ section.settings.heading }}</h1>
+        <p>{{ section.settings.subheading }}</p>
+
+        {% form 'customer', class: 'newsletter-form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="newsletter-form-section">
+            <input
+              type="email"
+              name="contact[email]"
+              placeholder="{{ section.settings.placeholder }}"
+              class="newsletter-input"
+              required
+            >
+            <button
+              type="submit"
+              class="btn btn-primary newsletter-btn lightblue-btn"
+              aria-label="Sign up"
+            >
+              {{ section.settings.button_text }}
+            </button>
+          </div>
+
+          {% if form.posted_successfully? %}
+            <p class="newsletter-success">{{ 'general.newsletter.confirmation' | t }}</p>
+          {% elsif form.errors %}
+            <p class="newsletter-error">
+              {{ form.errors.translated_fields.email | capitalize }}
+              {{ form.errors.messages.email }}
+            </p>
+          {% endif %}
+        {% endform %}
+      </div>
+
+      <div class="spacer-30"></div>
+
+      <div class="newsletter-social">
+        <div class="newsletter-social-icon">
+          {% if section.settings.facebook_url != blank %}
+            <a href="{{ section.settings.facebook_url }}" target="_blank">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+          {% endif %}
+
+          {% if section.settings.instagram_url != blank %}
+            <a href="{{ section.settings.instagram_url }}" target="_blank">
+              <i class="fab fa-instagram"></i>
+            </a>
+          {% endif %}
+
+          {% if section.settings.twitter_url != blank %}
+            <a href="{{ section.settings.twitter_url }}" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          {% endif %}
+
+          {% if section.settings.email != blank %}
+            <a href="mailto:{{ section.settings.email }}">
+              <i class="fas fa-envelope"></i>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .newsletter-section {
+    background-color: #f8f8f8;
+    text-align: center;
+  }
+
+  .newsletter-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .newsletter-text h1 {
+    font-size: 48px;
+    color: #8fc7c9;
+    font-family: poppins, sans-serif;
+    font-weight: 300;
+    text-transform: capitalize;
+    margin-bottom: 15px;
+  }
+
+  .newsletter-text p {
+    font-size: 16px;
+    color: #2f2f2f;
+    font-family: poppins, sans-serif;
+    font-weight: 300;
+    margin-bottom: 30px;
+  }
+
+  .newsletter-form-section {
+    border: 1px solid #848484;
+    border-radius: 48px;
+    padding: 3px;
+    display: flex;
+    justify-content: space-between;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .newsletter-input {
+    box-sizing: border-box;
+    border: 0;
+    font-size: 16px;
+    background-color: transparent;
+    padding: 12px 20px;
+    flex: 1;
+    min-width: 0;
+    font-family: poppins, sans-serif;
+  }
+
+  .lightblue-btn {
+    background-color: #208fa3;
+    color: white;
+    padding: 12px 35px;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 48px;
+    font-family: poppins, sans-serif;
+    border: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .lightblue-btn:hover {
+    background-color: #1a7485;
+    transform: translateY(-2px);
+  }
+
+  .newsletter-social-icon {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 20px;
+  }
+
+  .newsletter-social-icon a {
+    color: #208fa3;
+    font-size: 24px;
+    transition: transform 0.3s ease;
+  }
+
+  .newsletter-social-icon a:hover {
+    transform: translateY(-3px);
+    color: #1a7485;
+  }
+
+  .spacer-30 {
+    height: 30px;
+  }
+
+  .newsletter-success,
+  .newsletter-error {
+    margin-top: 15px;
+    font-family: poppins, sans-serif;
+    font-size: 14px;
+  }
+
+  .newsletter-success {
+    color: #28a745;
+  }
+
+  .newsletter-error {
+    color: #dc3545;
+  }
+
+  @media (max-width: 768px) {
+    .newsletter-text h1 {
+      font-size: 36px;
+    }
+
+    .newsletter-form-section {
+      flex-direction: column;
+      border: none;
+      gap: 15px;
+    }
+
+    .newsletter-input {
+      border: 1px solid #848484;
+      border-radius: 48px;
+      padding: 12px 20px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Newsletter Section",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Sign up for our newsletter"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Get Access To Giveaways and Promotions"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Input Placeholder",
+      "default": "Email Address"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Sign Up"
+    },
+    {
+      "type": "header",
+      "content": "Social Media"
+    },
+    {
+      "type": "url",
+      "id": "facebook_url",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "twitter_url",
+      "label": "Twitter URL"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email Address"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter Section",
+      "category": "Promotional"
+    }
+  ]
+}
+{% endschema %}

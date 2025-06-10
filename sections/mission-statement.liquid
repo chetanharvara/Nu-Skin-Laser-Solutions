@@ -1,0 +1,26 @@
+{% comment %} Mission Section {% endcomment %}
+{% schema %}
+{
+  "name": "Mission Statement",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "mission_text",
+      "label": "Mission Text",
+      "default": "Our mission is to provide a professional and practical approach to health and beauty..."
+    },
+    {
+      "type": "url",
+      "id": "see_services_link",
+      "label": "See Services Link"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="mission">
+  <h2>Our Mission.</h2>
+  <p>{{ section.settings.mission_text }}</p>
+  <a href="{{ section.settings.see_services_link }}" class="btn">See Services</a>
+</section>

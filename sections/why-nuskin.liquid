@@ -1,0 +1,39 @@
+{% comment %} Why Us Section {% endcomment %}
+{% schema %}
+{
+  "name": "Why Us",
+  "tag": "section",
+  "blocks": [
+    {
+      "type": "reason",
+      "name": "Reason",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [{ "name": "Why Nu-Skin Laser Solutions" }]
+}
+{% endschema %}
+
+<section class="why-us">
+  <h2>Why Nu-Skin Laser Solutions?</h2>
+  <div class="reasons">
+    {% for block in section.blocks %}
+      <div class="reason">
+        <h3>{{ block.settings.title }}</h3>
+        <p>{{ block.settings.description }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>

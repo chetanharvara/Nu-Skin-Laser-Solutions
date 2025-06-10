@@ -1,0 +1,428 @@
+{% comment %} sections/real-clients.liquid {% endcomment %}
+<div class="real-results-section section-{{ section.id }}-padding">
+  <div class="real-results-section-bg">
+    <div class="page-width">
+      <div class="real-results-content">
+        <h1>{{ section.settings.heading }}</h1>
+
+        {% comment %} {# Carousel container #} {% endcomment %}
+        <div class="real-results-carousel">
+          <div class="carousel-track">
+            {% for block in section.blocks %}
+              <div class="client-slide" data-index="{{ forloop.index0 }}">
+                {% if block.settings.image != blank %}
+                  <div class="image-container">
+                    <img
+                      src="{{ block.settings.image | image_url: width: 600 }}"
+                      alt="{{ block.settings.caption | escape }}"
+                      class="clientimgslide"
+                      loading="lazy"
+                    >
+                    <div class="client-caption">
+                      {{ block.settings.caption }}
+                    </div>
+                  </div>
+                {% else %}
+                  {% comment %}
+                    <div class="placeholder-client">
+                      {{ 'image' | placeholder_svg_tag: 'clientimgslide placeholder-svg' }}
+                      <div class="client-caption">Before & After</div>
+                    </div>
+                  {% endcomment %}
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+
+          {% comment %} {# Navigation arrows #} {% endcomment %}
+          <button class="carousel-arrow prev-arrow" aria-label="Previous slide">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="36px" height="36px">
+              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+            </svg>
+          </button>
+          <button class="carousel-arrow next-arrow" aria-label="Next slide">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="36px" height="36px">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+            </svg>
+          </button>
+
+          {% comment %} {# Pagination dots #} {% endcomment %}
+          <div class="carousel-pagination">
+            {% comment %} Calculate number of dot groups needed {% endcomment %}
+            {% assign slideGroups = section.blocks.size | divided_by: 3.0 | ceil %}
+            {% for i in (1..slideGroups) %}
+              <button
+                class="pagination-dot {% if forloop.first %}active{% endif %}"
+                data-group="{{ forloop.index0 }}"
+                aria-label="Go to group {{ forloop.index }}"
+              ></button>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .real-results-section-bg {
+    background-color: #8fc7c9;
+    padding: 50px 0;
+  }
+
+  .real-results-content h1 {
+    font-size: 56px;
+    color: #fff;
+    font-family: poppins, sans-serif;
+    font-weight: 400;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  {# Carousel container #}
+  .real-results-carousel {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .client-slide {
+    min-width: calc(33.333% - 20px);
+    flex: 0 0 calc(33.333% - 20px);
+    margin: 0 10px;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    transition: transform 0.3s ease;
+  }
+
+  .client-slide:hover {
+    transform: translateY(-5px);
+  }
+
+  .image-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .clientimgslide {
+    width: 100%;
+    height: 564px;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
+
+  .client-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 15px 20px;
+    font-family: poppins, sans-serif;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .placeholder-client {
+    background: #e0e0e0;
+    width: 100%;
+    height: 564px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+  }
+
+  {# Navigation arrows #}
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.3);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    z-index: 10;
+  }
+
+  .carousel-arrow:hover {
+    background: rgba(0,0,0,0.6);
+  }
+
+  .prev-arrow {
+    left: 15px;
+  }
+
+  .next-arrow {
+    right: 15px;
+  }
+
+  {# Pagination dots #}
+  .carousel-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 10px;
+  }
+
+  .pagination-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .pagination-dot.active {
+    background: white;
+  }
+
+  @media (max-width: 1100px) {
+    .client-slide {
+      min-width: calc(50% - 20px);
+      flex: 0 0 calc(50% - 20px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .real-results-content h1 {
+      font-size: 36px;
+    }
+
+    .client-slide {
+      min-width: calc(100% - 20px);
+      flex: 0 0 calc(100% - 20px);
+    }
+
+    .clientimgslide,
+    .placeholder-client {
+      height: 400px;
+    }
+
+    .carousel-arrow {
+      width: 40px;
+      height: 40px;
+    }
+
+    .prev-arrow {
+      left: 5px;
+    }
+
+    .next-arrow {
+      right: 5px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .clientimgslide,
+    .placeholder-client {
+      height: 350px;
+    }
+
+    .carousel-arrow {
+      width: 35px;
+      height: 35px;
+    }
+
+    .carousel-arrow svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const carousel = document.querySelector('.real-results-carousel');
+    if (!carousel) return;
+
+    const track = carousel.querySelector('.carousel-track');
+    const slides = carousel.querySelectorAll('.client-slide');
+    const dots = carousel.querySelectorAll('.pagination-dot');
+    const prevBtn = carousel.querySelector('.prev-arrow');
+    const nextBtn = carousel.querySelector('.next-arrow');
+
+    // Calculate slides per view based on screen size
+    function getSlidesPerView() {
+      if (window.innerWidth < 768) return 1;
+      if (window.innerWidth < 1100) return 2;
+      return 3;
+    }
+
+    let currentGroup = 0;
+    let slidesPerView = getSlidesPerView();
+
+    // Calculate number of slide groups
+    function calculateSlideGroups() {
+      slidesPerView = getSlidesPerView();
+      return Math.ceil(slides.length / slidesPerView);
+    }
+
+    // Update carousel position
+    function updateCarousel() {
+      const slideWidth = slides[0].offsetWidth + 20; // width + margin
+      const transformValue = -currentGroup * slidesPerView * slideWidth;
+      track.style.transform = `translateX(${transformValue}px)`;
+
+      // Update active dot
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentGroup);
+      });
+    }
+
+    // Next slide group
+    function nextGroup() {
+      const totalGroups = calculateSlideGroups();
+      currentGroup = (currentGroup + 1) % totalGroups;
+      updateCarousel();
+    }
+
+    // Previous slide group
+    function prevGroup() {
+      const totalGroups = calculateSlideGroups();
+      currentGroup = (currentGroup - 1 + totalGroups) % totalGroups;
+      updateCarousel();
+    }
+
+    // Dot click handler
+    dots.forEach((dot) => {
+      dot.addEventListener('click', function () {
+        currentGroup = parseInt(this.dataset.group);
+        updateCarousel();
+      });
+    });
+
+    // Arrow click handlers
+    prevBtn.addEventListener('click', prevGroup);
+    nextBtn.addEventListener('click', nextGroup);
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') {
+        prevGroup();
+      } else if (e.key === 'ArrowRight') {
+        nextGroup();
+      }
+    });
+
+    // Handle window resize
+    let resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        slidesPerView = getSlidesPerView();
+        updateCarousel();
+      }, 250);
+    });
+
+    // Initialize carousel
+    updateCarousel();
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Real Clients Results",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Real clients. Real results."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "result",
+      "name": "Result",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Recommended size: 413x564px"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption",
+          "default": "4 treatments: Rosacea"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Real Clients Results",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "result",
+          "settings": {
+            "caption": "4 treatments: Rosacea"
+          }
+        },
+        {
+          "type": "result",
+          "settings": {
+            "caption": "8 treatments: Body Contouring"
+          }
+        },
+        {
+          "type": "result",
+          "settings": {
+            "caption": "4 treatments: Neck & Chin"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

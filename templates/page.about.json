@@ -1,0 +1,46 @@
+{
+  "sections": {
+    "page-title-header": {
+      "type": "page-title-header",
+      "settings": {
+        "title": "About Us",
+        "subtitle": "Learn more about our mission and values"
+      }
+    },
+    "about-us-container": {
+      "type": "about-us-container",
+      "settings": {
+        "content": "<p>We are committed to providing the best service possible.</p>"
+      }
+    },
+    "divider-blue": {
+      "type": "divider-blue",
+      "settings": {
+        "color": "#0000FF"
+      }
+    },
+    "profile-container": {
+      "type": "profile-container",
+      "settings": {
+        "profiles": [
+          {
+            "name": "John Doe",
+            "role": "CEO",
+            "bio": "<p>John has over 20 years of experience in the industry.</p>"
+          },
+          {
+            "name": "Jane Smith",
+            "role": "CTO",
+            "bio": "<p>Jane is an expert in technology and innovation.</p>"
+          }
+        ]
+      }
+    }
+  },
+  "order": [
+    "page-title-header",
+    "about-us-container",
+    "divider-blue",
+    "profile-container"
+  ]
+}

@@ -1,0 +1,39 @@
+{% comment %} Testimonials Section {% endcomment %}
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Testimonial Text"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [{ "name": "Testimonials" }]
+}
+{% endschema %}
+
+<section class="testimonials">
+  <h2>Real clients. Real results.</h2>
+  <div class="testimonial-list">
+    {% for block in section.blocks %}
+      <blockquote>
+        <p>“{{ block.settings.text }}”</p>
+        <cite>- {{ block.settings.author }}</cite>
+      </blockquote>
+    {% endfor %}
+  </div>
+</section>

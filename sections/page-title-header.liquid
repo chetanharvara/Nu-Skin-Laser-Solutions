@@ -1,0 +1,62 @@
+{% comment %} sections/page-title-header.liquid {% endcomment %}
+<div class="page-title-header" style="background: {{ section.settings.bg_color }};">
+  <div class="page-width">
+    <h2>{{ section.settings.title }}</h2>
+  </div>
+</div>
+
+<style>
+  .page-title-header {
+    padding: 60px 0;
+    text-align: center;
+  }
+
+  .page-title-header h2 {
+    font-size: 48px;
+    font-weight: 400;
+    color: {{ section.settings.text_color }};
+    font-family: poppins, sans-serif;
+  }
+
+  @media (max-width: 768px) {
+    .page-title-header {
+      padding: 40px 0;
+    }
+
+    .page-title-header h2 {
+      font-size: 36px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Page Title Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "About Us"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#2f2f2f"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page Title Header",
+      "category": "Headers"
+    }
+  ]
+}
+{% endschema %}

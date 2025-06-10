@@ -1,0 +1,59 @@
+{% comment %} Custom Laser Hair Removal Product Section {% endcomment %}
+<div class="laser-product-wrapper page-width">
+  <h1>Laser Hair Removal</h1>
+  <p>Our most popular service! Experience nearly pain-free hair removal with cooling technology for comfort.</p>
+
+  <div class="laser-info-grid">
+    <div>
+      <h3>What is it?</h3>
+      <p>
+        Laser targets dark pigmented follicles during active growth, destroying them while keeping skin safe. Multiple
+        sessions are needed to cover full growth cycles.
+      </p>
+    </div>
+    <div>
+      <h3>Longevity</h3>
+      <p>Semi-Permanent</p>
+    </div>
+    <div>
+      <h3>Downtime</h3>
+      <p>No Sun Exposure for 2 weeks after treatment</p>
+    </div>
+    <div>
+      <h3>Target Areas</h3>
+      <p>Full Body</p>
+    </div>
+    <div>
+      <h3>Treatment Duration</h3>
+      <p>15-60 Minutes</p>
+    </div>
+  </div>
+
+  <h2>Select Package</h2>
+  <div class="laser-packages">
+    {% assign packages = 'Small,Medium,Large,X-Large' | split: ',' %}
+    {% assign sessions = '3 Sessions,6 Sessions' | split: ',' %}
+    {% assign prices = '297,697,397,797,497,897,597,997' | split: ',' %}
+    {% assign i = 0 %}
+
+    {% for session in sessions %}
+      <div class="session-group">
+        <h3>{{ session }}</h3>
+        <div class="package-options">
+          {% for size in packages %}
+            <div class="package-card">
+              <p>{{ session }} | {{ size }}</p>
+              <p>
+                <strong>${{ prices[i] }}</strong>
+              </p>
+              <button class="btn">Add to Cart</button>
+            </div>
+            {% assign i = i | plus: 1 %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <p class="note">Notice: A package may only be applied to one area. (e.g., Inner thighs only for Medium package)</p>
+</div>

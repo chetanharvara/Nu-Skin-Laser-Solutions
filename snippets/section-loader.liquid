@@ -1,0 +1,15 @@
+{% comment %} snippets/section-loader.liquid {% endcomment %}
+{% case section_handle %}
+  {% when 'contact-us-form' %}
+    {% section 'contact-us-form' %}
+  {% when 'contact-us-info' %}
+    {% section 'contact-us-info' %}
+  {% when 'about-us-container' %}
+    {% section 'about-us-container' %}
+  {% when 'profile-container' %}
+    {% section 'profile-container' %}
+  {% when 'page-title-header' %}
+    {% section 'page-title-header' %}
+  {% else %}
+    <div class="section-error">Section '{{ section_handle }}' not found</div>
+{% endcase %}

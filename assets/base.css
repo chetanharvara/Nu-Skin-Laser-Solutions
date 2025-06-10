@@ -5,7 +5,8 @@
   --alpha-badge-border: 0.1;
   --focused-base-outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
   --focused-base-outline-offset: 0.3rem;
-  --focused-base-box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
+  --focused-base-box-shadow: 0 0 0 0.3rem rgb(var(--color-background)),
+    0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
 }
 
 .product-card-wrapper .card,
@@ -1320,15 +1321,14 @@ button.shopify-payment-button__button--unbranded {
 
 shopify-accelerated-checkout {
   --shopify-accelerated-checkout-button-border-radius: var(--buttons-radius-outset);
-  --shopify-accelerated-checkout-button-box-shadow: var(--shadow-horizontal-offset) var(--shadow-vertical-offset) var(--shadow-blur-radius)
-  rgba(var(--color-shadow), var(--shadow-opacity));
+  --shopify-accelerated-checkout-button-box-shadow: var(--shadow-horizontal-offset) var(--shadow-vertical-offset)
+    var(--shadow-blur-radius) rgba(var(--color-shadow), var(--shadow-opacity));
 }
 shopify-accelerated-checkout-cart {
   --shopify-accelerated-checkout-button-border-radius: var(--buttons-radius-outset);
-  --shopify-accelerated-checkout-button-box-shadow: var(--shadow-horizontal-offset) var(--shadow-vertical-offset) var(--shadow-blur-radius)
-  rgba(var(--color-shadow), var(--shadow-opacity));
+  --shopify-accelerated-checkout-button-box-shadow: var(--shadow-horizontal-offset) var(--shadow-vertical-offset)
+    var(--shadow-blur-radius) rgba(var(--color-shadow), var(--shadow-opacity));
 }
-
 
 /* Button - other */
 
@@ -3593,5 +3593,156 @@ details-disclosure > details {
   }
   100% {
     transform: translateX(100%) scaleX(0);
+  }
+}
+
+/* Contact Form Styles */
+.contact-us-form {
+  padding: 30px;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 6px;
+}
+
+.contact-us-form h3 {
+  font-size: 24px;
+  color: #208fa3;
+  font-family: poppins, sans-serif;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.form-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.filed-full,
+.filed-50 {
+  display: flex;
+  flex-direction: column;
+}
+
+.filed-full {
+  width: 100%;
+}
+
+.filed-50 {
+  width: calc(50% - 8px);
+}
+
+.contact-us-form label {
+  font-size: 14px;
+  color: #208fa3;
+  font-family: poppins, sans-serif;
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+
+.contact-us-form input,
+.contact-us-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: poppins, sans-serif;
+}
+
+.contact-us-form textarea {
+  min-height: 120px;
+}
+
+.darkblue-btn {
+  background: #208fa3;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-family: poppins, sans-serif;
+  margin-top: 15px;
+}
+
+/* Contact Info Styles */
+.contact-us-info {
+  padding: 30px;
+}
+
+.contact-us-info h3 {
+  font-size: 24px;
+  color: #208fa3;
+  font-family: poppins, sans-serif;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.contact-address,
+.contact-hours,
+.contact-email,
+.contact-phone {
+  font-size: 16px;
+  color: #2f2f2f;
+  font-family: poppins, sans-serif;
+  margin-bottom: 15px;
+}
+
+.contact-email a,
+.contact-phone a {
+  color: #208fa3;
+  text-decoration: none;
+}
+
+.contact-email a:hover,
+.contact-phone a:hover {
+  text-decoration: underline;
+}
+
+.borderblue-btn {
+  display: inline-block;
+  background: transparent;
+  color: #208fa3;
+  border: 2px solid #208fa3;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: poppins, sans-serif;
+  text-decoration: none;
+  margin: 15px 0;
+}
+
+.borderblue-btn:hover {
+  background: #208fa3;
+  color: white;
+}
+
+.map-container {
+  width: 100%;
+  height: 250px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .filed-50 {
+    width: 100%;
+  }
+
+  .contact-us-form,
+  .contact-us-info {
+    padding: 20px;
   }
 }
