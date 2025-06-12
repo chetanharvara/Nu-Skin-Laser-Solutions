@@ -97,3 +97,7 @@
 .collection__view-all a:not(.link) {
   margin-top: 1rem;
 }
+
+.facet-filters__label_sortby {
+  font-size: 65px !important;
+}

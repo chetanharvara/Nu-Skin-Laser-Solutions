@@ -1,0 +1,137 @@
+{% comment %}
+  Card Product Snippet: This expects `card_product` to be passed via `render`
+{% endcomment %}
+
+{% if card_product != blank %}
+  <div class="card-wrapper">
+    <div class="card card--standard card--text">
+      <div class="card__content">
+        <div class="card__information">
+          <div class="card-information">
+            <h3 class="card__heading">{{ card_product.title }}</h3>
+
+            {% if card_product.featured_image %}
+              <img
+                src="{{ card_product.featured_image | image_url: width: 400 }}"
+                alt="{{ card_product.title }}"
+                class="product-image"
+              />
+            {% endif %}
+
+            {% if card_product.metafields.custom.description != blank %}
+              <p class="product-description">
+                {{ card_product.metafields.custom.description }}
+              </p>
+            {% endif %}
+
+            <p class="price">{{ card_product.price | money }}</p>
+
+            <a href="{{ card_product.url }}" class="btn btn-primary">View Product</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% else %}
+  <div class="card-wrapper">
+    <div class="card card--standard card--text">
+      <div class="card__content">
+        <p>This card requires a product object to render.</p>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<style>
+.card-wrapper {
+  text-align: center;
+}
+.card__heading {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+.product-image {
+  width: 100%;
+  height: auto;
+  margin: 10px 0;
+}
+.price {
+  font-weight: 600;
+  color: #111;
+  margin: 10px 0;
+}
+.btn.btn-primary {
+  background: #000;
+  color: white;
+  padding: 10px 20px;
+  display: inline-block;
+  border-radius: 6px;
+  text-decoration: none;
+}
+</style>
+
+
+{% schema %}
+{
+  "name": "Card Product",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "card_product",
+      "name": "Card Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "card_product",
+          "label": "Select Product"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Card Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "card_text",
+          "label": "Text to display on the card"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Card Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "card_image",
+          "label": "Image for the card"
+        }
+      ]
+    },
+    {
+      "type": "link",
+      "name": "Card Link",
+      "settings": [
+        {
+          "type": "url",
+          "id": "card_link",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Card Product",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+{% javascript %}
+  // Ensure the card product is available in the context
+  if (typeof card_product === 'undefined') {
+    console.error('Card product not defined. Please ensure you select a product in the block settings.');
+  }
+{% endjavascript %}

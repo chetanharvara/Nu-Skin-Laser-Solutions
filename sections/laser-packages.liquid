@@ -1,0 +1,165 @@
+{{ 'laser-packages.css' | asset_url | stylesheet_tag }}
+
+<section class="laser-package-section page-width" style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }}; padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <h2 class="section-title">{{ section.settings.section_title }}</h2>
+
+  <div class="package-grid" style="gap: {{ section.settings.grid_gap }}px;">
+    {% assign button_color = section.settings.button_color %}
+    {% assign button_text_color = section.settings.button_text_color %}
+    {% assign sizes = "Small,Medium,Large,X-Large" | split: "," %}
+    {% assign products = collections.all.products %}
+
+    {% for size in sizes %}
+      <div class="package-card">
+        <h3 class="package-title">{{ size }}</h3>
+        <ul class="variant-list">
+          {% for product in products %}
+            {% if product.title contains size %}
+              <li>
+                <form method="post" action="/cart/add">
+                  <input
+                    type="hidden"
+                    name="id"
+                    value="{{ product.variants.first.id }}">
+                  <span class="variant-name">{{ product.title }}</span>
+                  <span class="price">{{ product.price | money }}</span>
+                  <button type="submit" class="btn">Add to Cart</button>
+                </form>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="package-note">
+    <strong>Notice:</strong>
+    {{ section.settings.section_note }}
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Laser Package Section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "section_title",
+        "label": "Section Title",
+        "default": "Select Package"
+      },
+      {
+        "type": "text",
+        "id": "section_note",
+        "label": "Section Note",
+        "default": "A package may only be applied to one (1) area. For example, if you purchase a package of '6 Sessions | Medium' and use your first session on inner thighs, you may use the rest of your sessions for that package to inner thighs only."
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "button_color",
+        "label": "Button Color",
+        "default": "#007bff"
+      },
+      {
+        "type": "color",
+        "id": "button_text_color",
+        "label": "Button Text Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "Top Padding",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "Bottom Padding",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "grid_gap",
+        "min": 0,
+        "max": 50,
+        "step": 5,
+        "unit": "px",
+        "label": "Grid Gap",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "card_padding",
+        "min": 0,
+        "max": 50,
+        "step": 5,
+        "unit": "px",
+        "label": "Card Padding",
+        "default": 15
+      },
+      {
+        "type": "range",
+        "id": "card_border_radius",
+        "min": 0,
+        "max": 50,
+        "step": 5,
+        "unit": "px",
+        "label": "Card Border Radius",
+        "default": 10
+      },
+      {
+        "type": "range",
+        "id": "button_border_radius",
+        "min": 0,
+        "max": 50,
+        "step": 5,
+        "unit": "px",
+        "label": "Button Border Radius",
+        "default": 5
+      }
+    ],
+    "presets": [
+      {
+        "name": "Laser Package Section",
+        "category": "Products",
+        "settings": {
+          "section_title": "Select Package",
+          "section_note": "A package may only be applied to one (1) area. For example, if you purchase a package of '6 Sessions | Medium' and use your first session on inner thighs, you may use the rest of your sessions for that package to inner thighs only.",
+          "bg_color": "#ffffff",
+          "text_color": "#000000",
+          "button_color": "#007bff",
+          "button_text_color": "#ffffff",
+          "padding_top": 20,
+          "padding_bottom": 20,
+          "grid_gap": 20,
+          "card_padding": 15,
+          "card_border_radius": 10,
+          "button_border_radius": 5
+        }
+
+      }
+    ]
+  }
+{% endschema %}
