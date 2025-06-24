@@ -1,141 +1,158 @@
-<div class="overview-wrapper">
-  <div class="overview-content">
-    <h3 class="overview-title">Overview</h3>
-    <hr class="overview-divider" />
+<div class="overview-wrapper" id="overview-meta-fields">
+  <div class="overview-container">
+    <div class="overview-content">
+      <h3 class="overview-title">Overview</h3>
+      <hr class="overview-divider" />
 
-    <div class="overview-row">
-      <div class="overview-label">Longevity</div>
-      <div class="overview-value">{{ card_product.metafields.custom.longevity }}</div>
-    </div>
+      <div class="overview-row">
+        <div class="overview-label">Longevity</div>
+        <div class="overview-value">{{ card_product.metafields.custom.longevity }}</div>
+      </div>
 
-    <div class="overview-row">
-      <div class="overview-label">Downtime</div>
-      <div class="overview-value">{{ card_product.metafields.custom.downtime }}</div>
-    </div>
+      <div class="overview-row">
+        <div class="overview-label">Downtime</div>
+        <div class="overview-value">{{ card_product.metafields.custom.downtime }}</div>
+      </div>
 
-    <div class="overview-row">
-      <div class="overview-label">Target Areas</div>
-      <div class="overview-value">{{ card_product.metafields.custom.target_areas }}</div>
-    </div>
+      <div class="overview-row">
+        <div class="overview-label">Target Areas</div>
+        <div class="overview-value">{{ card_product.metafields.custom.target_areas }}</div>
+      </div>
 
-    <div class="overview-row">
-      <div class="overview-label">Treatment Duration</div>
-      <div class="overview-value">{{ card_product.metafields.custom.duration }}</div>
+      <div class="overview-row">
+        <div class="overview-label">Treatment Duration</div>
+        <div class="overview-value">{{ card_product.metafields.custom.duration }}</div>
+      </div>
     </div>
   </div>
 
   <div class="overview-image">
-    {% if card_product.metafields.custom.overview_image %}
-      <img
-        src="{{ card_product.metafields.custom.overview_image | image_url: width: 600 }}"
-        alt="Overview Image"
-      />
-    {% endif %}
+      {% comment %} {% if card_product.metafields.custom.overview_image %}
+              <img
+                src="{{ card_product.metafields.custom.overview_image | image_url: width: 600 }}"
+                alt="Overview Image"
+              />
+          {% endif %} {% endcomment %}
+    <img src="https://www.nuskin.com/content/dam/eu-library/website-content/products/nuskin/beauty-devices/nu-skin-ageloc-best-selling-beauty-devices-banner.jpg" alt="Overview Image" />
   </div>
 </div>
 
 <style>
-.overview-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  background: linear-gradient(90deg, #6dc7c4 0%, #2aa7c9 100%);
-  padding: 40px;
-  border-radius: 12px;
-  color: #fff;
-  flex-wrap: wrap;
-}
-.overview-content {
-  width: 55%;
-}
-.overview-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-.overview-divider {
-  border: none;
-  height: 1px;
-  background: #fff;
-  margin-bottom: 20px;
-}
-.overview-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-.overview-label {
-  font-weight: 600;
-  width: 50%;
-}
-.overview-value {
-  font-weight: 400;
-  text-align: right;
-  width: 50%;
-  text-decoration: underline;
-}
-.overview-image {
-  width: 40%;
-  text-align: right;
-}
-.overview-image img {
-  max-width: 100%;
-  border-radius: 8px;
-}
-@media (max-width: 768px) {
   .overview-wrapper {
-    flex-direction: column;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-right: 10%;
+  }
+  .overview-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: linear-gradient(90deg, #6dc7c4 0%, #2aa7c9 100%);
+    padding: 40px;
+    border-radius: 0 6px 6px 0;
+    color: #fff;
+    flex-wrap: wrap;
+    width: 70%;
+  }
+  .overview-content {
+    width: 85%;
     padding: 20px;
   }
-  .overview-content, .overview-image {
-    width: 100%;
-    text-align: left;
+  .overview-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .overview-divider {
+    border: none;
+    height: 1px;
+    background: #fff;
+    margin-bottom: 20px;
+  }
+  .overview-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .overview-label {
+    font-weight: 600;
+    width: 50%;
   }
   .overview-value {
-    text-align: left;
+    font-weight: 400;
+    text-align: right;
+    width: 50%;
+    text-decoration: underline;
   }
-}
+  .overview-image {
+    width: 30%;
+    text-align: right;
+    margin: 0 64px 0 -60px;
+    align-self: center;
+    background: #fff;
+  }
+  .overview-image img {
+    max-width: 100%;
+    border-radius: 8px;
+    height: 280px;
+  }
+  @media (max-width: 768px) {
+    .overview-wrapper {
+      flex-direction: column;
+      padding: 20px;
+    }
+    .overview-content,
+    .overview-image {
+      width: 100%;
+      text-align: left;
+    }
+    .overview-value {
+      text-align: left;
+    }
+  }
 </style>
 
 {% schema %}
-{
-  "name": "Overview Meta Fields",
-  "settings": [
-    {
-      "type": "text",
-      "id": "longevity",
-      "label": "Longevity",
-      "default": "Longevity"
-    },
-    {
-      "type": "text",
-      "id": "downtime",
-      "label": "Downtime",
-      "default": "Downtime"
-    },
-    {
-      "type": "text",
-      "id": "target_areas",
-      "label": "Target Areas",
-      "default": "Target Areas"
-    },
-    {
-      "type": "text",
-      "id": "duration",
-      "label": "Treatment Duration",
-      "default": "Treatment Duration"
-    },
-    {
-      "type": "image_picker",
-      "id": "overview_image",
-      "label": "Overview Image"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Overview Meta Fields",
-      "category": "Custom"
-    }
-  ]
-}
+  {
+    "name": "Overview Meta Fields",
+    "settings": [
+      {
+        "type": "text",
+        "id": "longevity",
+        "label": "Longevity",
+        "default": "Longevity"
+      },
+      {
+        "type": "text",
+        "id": "downtime",
+        "label": "Downtime",
+        "default": "Downtime"
+      },
+      {
+        "type": "text",
+        "id": "target_areas",
+        "label": "Target Areas",
+        "default": "Target Areas"
+      },
+      {
+        "type": "text",
+        "id": "duration",
+        "label": "Treatment Duration",
+        "default": "Treatment Duration"
+      },
+      {
+        "type": "image_picker",
+        "id": "overview_image",
+        "label": "Overview Image"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Overview Meta Fields",
+        "category": "Custom"
+      }
+    ]
+  }
 {% endschema %}

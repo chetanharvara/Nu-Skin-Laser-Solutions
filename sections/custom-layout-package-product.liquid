@@ -1,0 +1,10 @@
+{% comment %}
+  This section conditionally shows Layout One or Layout Two
+  based on whether the product has tag: "layout-two"
+{% endcomment %}
+
+{% if product.tags contains 'layout-two' %}
+  {% render 'package-custom-layout-two' %}
+{% else %}
+  {% render 'package-custom-layout-one' %}
+{% endif %}

@@ -1,0 +1,87 @@
+<div id="package-size-overview" class="package-size-overview-wrapper">
+  <div class="package-size-overview-content">
+    <div class="package-size-overview-row">
+      <span class="package-size-overview-label">X-Large:</span>
+      <span class="package-size-overview-value">{{ section.settings.x-large }}</span>
+    </div>
+    <div class="package-size-overview-row">
+      <span class="package-size-overview-label">Large:</span>
+      <span class="package-size-overview-value">{{ section.settings.large }}</span>
+    </div>
+    <div class="package-size-overview-row">
+      <span class="package-size-overview-label">Medium:</span>
+      <span class="package-size-overview-value">{{ section.settings.medium }}</span>
+    </div>
+    <div class="package-size-overview-row">
+      <span class="package-size-overview-label">Small:</span>
+      <span class="package-size-overview-value">{{ section.settings.small }}</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .package-size-overview-content {
+    display: flex;
+    justify-content: center;
+    padding: 2% 10%;
+  }
+  .package-size-overview-row {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 0 2%;
+  }
+
+  .package-size-overview-value{
+    text-align: center;
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Package Size Overview",
+    "class": "package-size-overview",
+    "tag": "section",
+    "presets": [
+      {
+        "name": "Package Size Overview",
+        "category": "Custom"
+      }
+    ],
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "Package Size Overview"
+      },
+      {
+        "type": "text",
+        "id": "x-large",
+        "label": "X-Large",
+        "default": "Front Upper Body, Full Back Extension, Full Legs."
+      },
+      {
+        "type": "text",
+        "id": "large",
+        "label": "Large",
+        "default": "Chest, Abs, Full Back, Full Arms, Half Legs."
+      },
+      {
+        "type": "text",
+        "id": "medium",
+        "label": "Medium",
+        "default": "Full Face, Half Arms, Brazilian/Bikini, Buttocks, Inner Thighs, Underarms."
+      },
+      {
+        "type": "text",
+        "id": "small",
+        "label": "Small",
+        "default": "Forehead, Glabella, Ears, Cheeks, Upper Lip, Chin, Hands, Areola, Abline, Feet."
+      }
+    ]
+  }
+{% endschema %}
