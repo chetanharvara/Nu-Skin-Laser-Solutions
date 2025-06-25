@@ -1,0 +1,25 @@
+{% if product.metafields.custom.what_is_it != blank %}
+  <div class="extra-content-wrapper">
+    <h2 class="section-title">What is it?</h2>
+    <div class="what-is-it-content">
+      {{ product.metafields.custom.what_is_it | metafield_tag }}
+    </div>
+  </div>
+{% endif %}
+
+<style>
+  .extra-content-wrapper {
+    text-align: left;
+    padding: 20px;
+  }
+
+  .section-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .what-is-it-content {
+    font-size: 16px;
+    color: #666;
+  }
+</style>

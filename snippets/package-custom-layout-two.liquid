@@ -1,8 +1,5 @@
 <div class="package-section layout-two">
 
-
-
-
   <!-- Swiper -->
 <div class="swiper package-swiper">
   <div class="swiper-wrapper">
@@ -19,72 +16,47 @@
   <div class="swiper-pagination"></div>
 </div>
   <div class="package-details-container">
-    <h2>Select Package</h2>
-  <p class="price">{{ product.price | money }}</p>
+   <h2 class="section-title">
+    {{ section.settings.section_title | default: "Select Package" }}
+  </h2>
 
-  {% comment %} <div class="area-buttons">
-    {% for variant in product.variants %}
-      {% assign lower_title = variant.title | downcase %}
-      {% if lower_title contains '1 area' or lower_title contains '2 area' %}
-        <button
-          class="area-btn {% if forloop.first %}active{% endif %}"
-          data-variant-id="{{ variant.id }}"
-        >
-          {{ variant.title }}
-        </button>
-      {% endif %}
-    {% endfor %} 
-  </div> {% endcomment %}
 
   <!-- Buttons -->
-  <div id="layout-two-buttons" class="package-buttons">
-    {% assign has_sessions = false %}
-    {% assign has_areas = false %}
+  <div class="selected-price" id="selected-price"></div>
 
+  <div id="package-buttons" class="package-buttons">
     {% for variant in product.variants %}
-      {% if variant.title contains 'Session' %}
-        {% assign has_sessions = true %}
-      {% elsif variant.title contains 'Area' %}
-        {% assign has_areas = true %}
-      {% endif %}
+      <button
+        type="button"
+        class="package-btn"
+        data-variant-id="{{ variant.id }}"
+        data-price="{{ variant.price | money }}">
+        {{ variant.title }}
+      </button>
     {% endfor %}
-
-    {% if has_sessions %}
-      <h3 class="package-heading">Sessions</h3>
-      {% for variant in product.variants %}
-        {% if variant.title contains 'Session' %}
-          <button
-            type="button"
-            class="package-btn"
-            data-variant-id="{{ variant.id }}"
-            data-price="{{ variant.price | money }}"
-            data-image="{{ variant.featured_image | img_url: '400x' }}">
-            {{ variant.title }}
-          </button>
-        {% endif %}
-      {% endfor %}
-    {% endif %}
-
-    {% if has_areas %}
-      <h3 class="package-heading">Areas</h3>
-      {% for variant in product.variants %}
-        {% if variant.title contains 'Area' %}
-          <button
-            type="button"
-            class="package-btn"
-            data-variant-id="{{ variant.id }}"
-            data-price="{{ variant.price | money }}"
-            data-image="{{ variant.featured_image | img_url: '400x' }}">
-            {{ variant.title }}
-          </button>
-        {% endif %}
-      {% endfor %}
-    {% endif %}
   </div>
 
   <div class="action-buttons">
     <div class="package-buttons-addtocart-inner">
-<button class="add-to-cart primary-btn" id="addToCartLayoutTwo">ADD TO CART</button>
+
+    <form
+        method="post"
+        action="/cart/add"
+        class="add-to-cart-form">
+        <input
+          type="hidden"
+          name="id"
+          id="variant-id-field"
+          value="">
+        <button
+          type="submit"
+          class="add-to-cart primary-btn"
+          disabled
+          id="add-to-cart-btn">
+          {{ section.settings.button_text | default: "ADD TO CART" }}
+        </button>
+      </form>
+
     <button class="shop-pay-btn">
       <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -109,6 +81,12 @@
     
   </div>
 
+  <div class="divider-blue-section">
+    <div class="page-width">
+      <div class="divider-blue"></div>
+    </div>
+  </div>
+
   <p class="notice">
     <strong>Notice:</strong> A package may only be applied to one (1) area. For example, if you purchase a package of "6 Sessions | Medium" and use your first session on inner thighs, you may use the rest of your sessions for that package to inner thighs only.
   </p>
@@ -121,45 +99,7 @@
   href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
 />
 <script>
-  let selectedVariantId2 = null;
-
-  document.querySelectorAll('.area-btn').forEach(button => {
-    button.addEventListener('click', function () {
-      document.querySelectorAll('.area-btn').forEach(btn => btn.classList.remove('active'));
-      this.classList.add('active');
-      selectedVariantId2 = this.dataset.variantId;
-    });
-  });
-
-  window.addEventListener('DOMContentLoaded', () => {
-    const first = document.querySelector('.area-btn.active');
-    if (first) {
-      selectedVariantId2 = first.dataset.variantId;
-    }
-  });
-
-  document.getElementById('addToCartLayoutTwo').addEventListener('click', function () {
-    if (!selectedVariantId2) {
-      alert('Please select a package option.');
-      return;
-    }
-
-    fetch('/cart/add.js', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        id: selectedVariantId2,
-        quantity: 1
-      })
-    })
-    .then(res => res.json())
-    .then(data => {
-      window.location.href = '/cart';
-    })
-    .catch(err => {
-      console.error('Add to cart error:', err);
-    });
-  });
+  
 
 
    document.addEventListener("DOMContentLoaded", function () {
@@ -175,10 +115,73 @@
       }
     });
   });
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const buttons = document.querySelectorAll(".package-btn");
+    const variantInput = document.getElementById("variant-id-field");
+    const priceDisplay = document.getElementById("selected-price");
+    const addToCartBtn = document.getElementById("add-to-cart-btn");
+  
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        // Deselect all
+        buttons.forEach(btn => btn.classList.remove("selected"));
+  
+        // Select current
+        button.classList.add("selected");
+  
+        // Update variant ID and price
+        const variantId = button.getAttribute("data-variant-id");
+        const price = button.getAttribute("data-price");
+  
+        variantInput.value = variantId;
+        priceDisplay.innerText = "Price: " + price;
+        addToCartBtn.disabled = false;
+      });
+    });
+  });
 </script>
 
 
 <style>
+
+.selected-price {
+    font-size: 16px;
+    color: #2F2F2F;
+    font-family: poppins, sans-serif;
+    margin-bottom: 20px;
+  }
+
+
+.package-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: start;
+    margin: 20px 0;
+    width: 100%;
+  }
+
+  .package-btn {
+    padding: 10px 20px;
+    border: 2px solid #8FC7C9;
+    background-color: transparent;
+    color: #208FA3;
+    font-family: poppins, sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 25%;
+  }
+
+  .package-btn.selected,
+  .package-btn:hover {
+    background-color: #8FC7C9;
+    border: 2px solid #8FC7C9;
+    color: #fff;
+  }
+
+
 .package-section.layout-two {
     display: flex;
     gap: 2rem;
@@ -188,8 +191,9 @@
     flex-direction: row; 
 }
 
-.package-details-container{
-  width: 65%;
+.package-details-container, .package-section.layout-two > div:nth-child(2){
+  width: 65% !important;
+  max-width: 100% !important;
 }
 
 .package-swiper {
@@ -208,6 +212,9 @@
 .swiper-button-next,
 .swiper-button-prev {
   color: #333;
+}
+.swiper{
+  margin: 0 !important;
 }
 
 
@@ -283,17 +290,6 @@
   gap: 12px;
 }
 
-/* .add-to-cart {
-  background-color: #000;
-  color: #fff;
-  padding: 14px;
-  border: none;
-  font-size: 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-} */
-
 .primary-btn {
     background-color: #208FA3;
     color: white;
@@ -316,17 +312,7 @@
 .add-to-cart:hover {
   background-color: #222;
 }
-/* 
-.shop-pay {
-  background-color: #5a31f4;
-  padding: 12px;
-  border: none;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-} */
+
 
 .shop-pay svg {
   display: block;
@@ -336,8 +322,29 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    width: 85%;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+.divider-blue-section {
+    padding: 1.3px 1.3px;
+    background: #8fc7c9;
+  }
+
+  .divider-blue {
+    height: 1.3px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .notice{
+    font-size: 14px;
+    color: #2F2F2F;
+    font-family: poppins, sans-serif;
+    margin-top: 20px;
   }
 
 </style>

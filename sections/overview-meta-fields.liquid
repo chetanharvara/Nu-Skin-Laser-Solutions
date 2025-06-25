@@ -4,37 +4,37 @@
       <h3 class="overview-title">Overview</h3>
       <hr class="overview-divider" />
 
-      <div class="overview-row">
-        <div class="overview-label">Longevity</div>
-        <div class="overview-value">{{ card_product.metafields.custom.longevity }}</div>
-      </div>
+      {% for metafield in product.metafields.custom %}
+        {% assign key = metafield[0] %}
+        {% assign value = metafield[1].value %}
 
-      <div class="overview-row">
-        <div class="overview-label">Downtime</div>
-        <div class="overview-value">{{ card_product.metafields.custom.downtime }}</div>
-      </div>
-
-      <div class="overview-row">
-        <div class="overview-label">Target Areas</div>
-        <div class="overview-value">{{ card_product.metafields.custom.target_areas }}</div>
-      </div>
-
-      <div class="overview-row">
-        <div class="overview-label">Treatment Duration</div>
-        <div class="overview-value">{{ card_product.metafields.custom.duration }}</div>
-      </div>
+        {% if key contains 'overview_' and key != 'overview_image' and value != blank %}
+          {% assign label = key | remove: 'overview_' | replace: '_', ' ' | capitalize %}
+          <div class="overview-row">
+            <div class="overview-label">{{ label }}</div>
+            <div class="overview-value">{{ value }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
     </div>
   </div>
 
-  <div class="overview-image">
-      {% comment %} {% if card_product.metafields.custom.overview_image %}
-              <img
-                src="{{ card_product.metafields.custom.overview_image | image_url: width: 600 }}"
-                alt="Overview Image"
-              />
-          {% endif %} {% endcomment %}
-    <img src="https://www.nuskin.com/content/dam/eu-library/website-content/products/nuskin/beauty-devices/nu-skin-ageloc-best-selling-beauty-devices-banner.jpg" alt="Overview Image" />
-  </div>
+  {% assign meta_image = product.metafields.custom.overview_image %}
+  {% if meta_image %}
+    <div class="overview-image">
+      <img
+        src="{{ meta_image | image_url: width: 600 }}"
+        alt="Overview Image"
+      />
+    </div>
+  {% elsif section.settings.fallback_image != blank %}
+    <div class="overview-image">
+      <img
+        src="{{ section.settings.fallback_image | image_url: width: 600 }}"
+        alt="Fallback Overview Image"
+      />
+    </div>
+  {% endif %}
 </div>
 
 <style>
@@ -79,6 +79,7 @@
   .overview-label {
     font-weight: 600;
     width: 50%;
+    text-transform: capitalize;
   }
   .overview-value {
     font-weight: 400;
@@ -97,6 +98,7 @@
     max-width: 100%;
     border-radius: 8px;
     height: 280px;
+    object-fit: cover;
   }
   @media (max-width: 768px) {
     .overview-wrapper {
@@ -115,44 +117,21 @@
 </style>
 
 {% schema %}
-  {
-    "name": "Overview Meta Fields",
-    "settings": [
-      {
-        "type": "text",
-        "id": "longevity",
-        "label": "Longevity",
-        "default": "Longevity"
-      },
-      {
-        "type": "text",
-        "id": "downtime",
-        "label": "Downtime",
-        "default": "Downtime"
-      },
-      {
-        "type": "text",
-        "id": "target_areas",
-        "label": "Target Areas",
-        "default": "Target Areas"
-      },
-      {
-        "type": "text",
-        "id": "duration",
-        "label": "Treatment Duration",
-        "default": "Treatment Duration"
-      },
-      {
-        "type": "image_picker",
-        "id": "overview_image",
-        "label": "Overview Image"
-      }
-    ],
-    "presets": [
-      {
-        "name": "Overview Meta Fields",
-        "category": "Custom"
-      }
-    ]
-  }
+{
+  "name": "Dynamic Overview Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "fallback_image",
+      "label": "Fallback Overview Image",
+      "info": "This will be used if no product metafield image is available."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Overview",
+      "category": "Product"
+    }
+  ]
+}
 {% endschema %}

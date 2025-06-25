@@ -718,12 +718,16 @@
       endif
     -%}
 
+    {% render 'what-is-it-section' %}
+
+{% section 'overview-meta-fields' %}
+
+
       {% if product.tags contains 'layout-two' %}
   {% render 'package-custom-layout-two' %}
 {% else %}
   {% render 'package-custom-layout-one' %}
 {% endif %}
-
 
     <script type="application/ld+json">
       {{ product | structured_data }}
