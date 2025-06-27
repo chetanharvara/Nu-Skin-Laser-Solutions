@@ -26,3 +26,25 @@
     color: #666;
   }
 </style>
+
+{% schema %}
+    {
+        "name": "What is it Section",
+        "class": "what-is-it-section",
+        "tag": "section",
+        "presets": [
+        {
+            "name": "What is it Section",
+            "category": "Product"
+        }
+        ],
+        "settings": [
+        {
+            "type": "text",
+            "id": "section_title",
+            "label": "Section Title",
+            "default": "What is it?"
+        }
+        ]
+    }
+    {% endschema %}

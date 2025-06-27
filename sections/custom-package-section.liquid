@@ -1,0 +1,35 @@
+{% comment %}
+  This section renders either Layout One or Layout Two based on the product tag "layout-two".
+{% endcomment %}
+
+{% if product.tags contains 'layout-two' %}
+  {% render 'package-custom-layout-two', section: section %}
+{% else %}
+  {% render 'package-custom-layout-one', section: section %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Custom Package Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Select Package"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Add to Cart Button Text",
+      "default": "ADD TO CART"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Package",
+        "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
