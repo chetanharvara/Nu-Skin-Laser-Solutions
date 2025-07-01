@@ -1,7 +1,6 @@
 {% comment %} sections/our-mission.liquid {% endcomment %}
 <div class="mission-section section-{{ section.id }}-padding">
-  <div class="page-width">
-    <div class="mission-inner">
+  <div class="mission-inner">
       <div class="mission-text">
         <h1>{{ section.settings.heading }}</h1>
         <p>{{ section.settings.description }}</p>
@@ -37,7 +36,6 @@
         </div>
       </div>
     </div>
-  </div>
 </div>
 
 <style>
@@ -48,6 +46,8 @@
 
   .mission-section {
     background-color: #f8f8f8;
+    overflow: hidden;
+    padding: 40px 5%;
   }
 
   .mission-inner {
@@ -58,7 +58,7 @@
   }
 
   .mission-text {
-    width: 40%;
+    width: 60%;
   }
 
   .mission-text h1 {
@@ -78,7 +78,8 @@
   }
 
   .mission-image-col {
-    width: 60%;
+    width: 40%;
+    right: -10%;
     position: relative;
     overflow: visible;
   }
@@ -88,7 +89,7 @@
     justify-content: flex-start;
     gap: 20px;
     padding: 30px 0;
-    margin-left: -15%;
+    margin-left: -30%;
   }
 
   .imageslide {

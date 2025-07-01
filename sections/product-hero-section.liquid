@@ -1,0 +1,89 @@
+<div class="product-hero-section page-width">
+  <div class="product-hero-image">
+
+
+    {% assign product_image = product.featured_image %}
+    <img
+      src="{{ product_image | image_url: width: 600 }}"
+      alt="{{ product.title }}"
+      class="product-hero-image" />
+  </div>
+  <div class="product-hero-details">
+    <p class="product-description">{{ product.description | strip_html }}</p>
+
+    <div class="product-actions">
+     
+        
+        <a href="#packages-product-wrapper-id" class="lightblue-btn buy-now">Quick Shop</a>
+    </div>
+
+  </div>
+</div>
+
+
+<style>
+  .product-hero-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    gap: 20px;
+  }
+
+  .product-description {
+    font-size: 16px;
+    color: #333;
+    margin-top: 10px;
+  }
+
+  .product-actions {
+    margin-top: 20px;
+  }
+
+  .btn.buy-now {
+    background-color: #007bff;
+    color: white;aaaaaaaaaaaaaaa
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .btn.buy-now:hover {
+    background-color: #0056b3;
+  }
+
+  .lightblue-btn {
+    background: #8fc7c9;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-family: poppins, sans-serif;
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  .lightblue-btn:hover {
+    background: #7ab5b7;
+  }
+</style>
+
+<script></script>
+
+{% schema %}
+  {
+    "name": "Product Hero Section",
+    "class": "product-hero-section",
+    "tag": "section",
+    "presets": [
+      {
+        "name": "Product Hero Section",
+        "category": "Product"
+      }
+    ]
+  }
+{% endschema %}
